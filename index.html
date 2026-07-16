@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>❤️ Feliz Día de la Novia - Abigail</title>
+    <!-- Fuentes bonitas de Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* ===== ESTILOS GENERALES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a0a1a, #3a1a2a, #1a0a1a);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ===== CORAZONES FLOTANTES (FONDO) ===== */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .heart {
+            position: absolute;
+            font-size: 2rem;
+            color: #ff6b9d;
+            opacity: 0.3;
+            animation: floatUp linear infinite;
+            user-select: none;
+        }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(110vh) rotate(0deg) scale(0.5);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(720deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* ===== CONTENEDOR PRINCIPAL ===== */
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 480px;
+            padding: 20px;
+        }
+
+        /* ===== TARJETA ===== */
+        .card {
+            background: rgba(255, 240, 245, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 60px 60px 40px 40px;
+            padding: 40px 30px 45px;
+            border: 1px solid rgba(255, 200, 220, 0.2);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 100, 150, 0.1);
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+
+        /* ===== PANTALLA 1 (LOGIN) ===== */
+        #pantalla1 .titulo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #ff99bb, #ff3b7f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px #ff3b7f55;
+            margin-bottom: 10px;
+        }
+        #pantalla1 .subtitulo {
+            color: #f0b3cc;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+        }
+        #pantalla1 .pista {
+            color: #d4a0b8;
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 15px;
+            border-radius: 40px;
+            display: inline-block;
+            margin-bottom: 20px;
+            border: 1px dashed rgba(255, 150, 200, 0.3);
+        }
+        #pantalla1 .pista i {
+            color: #ff99bb;
+        }
+
+        /* Campo de contraseña */
+        .password-display {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 150, 200, 0.3);
+            border-radius: 60px;
+            padding: 12px 20px;
+            margin: 15px 0 20px;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #ffe0ec;
+            letter-spacing: 8px;
+            text-align: center;
+            min-height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Teclado numérico */
+        .teclado {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 20px 0 15px;
+        }
+        .teclado button {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 150, 200, 0.2);
+            border-radius: 30px;
+            padding: 16px 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #ffd6e6;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+        }
+        .teclado button:hover {
+            background: rgba(255, 100, 150, 0.25);
+            transform: scale(1.05);
+            border-color: #ff6b9d;
+        }
+        .teclado button:active {
+            transform: scale(0.95);
+        }
+        .teclado button.borrar {
+            background: rgba(255, 50, 80, 0.2);
+            color: #ff7f9f;
+        }
+        .teclado button.borrar:hover {
+            background: rgba(255, 50, 80, 0.4);
+        }
+        .teclado button.enter {
+            background: linear-gradient(135deg, #ff6b9d, #ff3b7f);
+            color: white;
+            border-color: #ff3b7f;
+            box-shadow: 0 0 25px #ff3b7f66;
+        }
+        .teclado button.enter:hover {
+            box-shadow: 0 0 40px #ff3b7faa;
+            transform: scale(1.06);
+        }
+
+        /* Mensaje de error */
+        .error-msg {
+            color: #ff6b8a;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            min-height: 24px;
+            transition: opacity 0.3s;
+            opacity: 0;
+        }
+        .error-msg.visible {
+            opacity: 1;
+        }
+
+        /* ===== PANTALLA 2 (SECRETA) ===== */
+        #pantalla2 {
+            display: none;
+            animation: fadeInUp 0.8s ease;
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        #pantalla2 .titulo-secreto {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.6rem;
+            background: linear-gradient(135deg, #ffb3d1, #ff6b9d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 5px;
+        }
+        #pantalla2 .sub-secreto {
+            color: #f0b3cc;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        /* Contenedor del video */
+        .video-wrapper {
+            border-radius: 30px;
+            overflow: hidden;
+            margin: 20px 0 25px;
+            box-shadow: 0 0 40px rgba(255, 50, 100, 0.3);
+            border: 2px solid rgba(255, 150, 200, 0.2);
+            position: relative;
+            padding-bottom: 56.25%; /* ratio 16:9 */
+            height: 0;
+        }
+        .video-wrapper iframe,
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 28px;
+        }
+
+        /* Texto bonito (poema / razones) */
+        .texto-bonito {
+            color: #f5d6e4;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            text-align: left;
+            padding: 0 5px;
+            max-height: 260px;
+            overflow-y: auto;
+            margin: 15px 0 10px;
+            scrollbar-width: thin;
+            scrollbar-color: #ff6b9d transparent;
+        }
+        .texto-bonito::-webkit-scrollbar {
+            width: 4px;
+        }
+        .texto-bonito::-webkit-scrollbar-thumb {
+            background: #ff6b9d;
+            border-radius: 10px;
+        }
+        .texto-bonito p {
+            margin-bottom: 14px;
+            padding-left: 10px;
+            border-left: 3px solid rgba(255, 100, 150, 0.3);
+            padding-left: 15px;
+        }
+        .texto-bonito .fecha {
+            color: #ff99bb;
+            font-weight: 600;
+        }
+        .texto-bonito .corazoncito {
+            color: #ff3b7f;
+        }
+
+        .frase-final {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #ffb3d1;
+            margin: 15px 0 5px;
+            text-shadow: 0 0 30px #ff3b7f44;
+        }
+
+        .fecha-pie {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #7a5a6b;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 15px;
+            letter-spacing: 1px;
+        }
+
+        /* ===== BOTÓN DE REINICIO (opcional) ===== */
+        .btn-reinicio {
+            background: transparent;
+            border: 1px solid rgba(255, 150, 200, 0.2);
+            color: #b388a0;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        .btn-reinicio:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #f0b3cc;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 480px) {
+            .card { padding: 30px 20px 35px; }
+            #pantalla1 .titulo { font-size: 2.2rem; }
+            .teclado button { padding: 14px 0; font-size: 1.5rem; }
+            .password-display { font-size: 1.5rem; min-height: 55px; }
+            #pantalla2 .titulo-secreto { font-size: 2rem; }
+            .texto-bonito { font-size: 0.95rem; max-height: 200px; }
+            .frase-final { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== CORAZONES FLOTANTES (generados por JS) ===== -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <!-- ===== CONTENEDOR PRINCIPAL ===== -->
+    <div class="container">
+
+        <!-- ========== PANTALLA 1: LOGIN ========== -->
+        <div id="pantalla1" class="card">
+            <h1 class="titulo">¡Feliz Día Amor<br>Mi Amor!</h1>
+            <p class="subtitulo">💕 Abigail 💕</p>
+
+            <div class="pista">
+                <i>🔑 Pista:</i> Un día muy especial para nosotros
+            </div>
+
+            <!-- Display de la contraseña -->
+            <div class="password-display" id="passwordDisplay">◈ ◈ ◈ ◈</div>
+
+            <!-- Teclado numérico -->
+            <div class="teclado">
+                <button data-value="1">1</button>
+                <button data-value="2">2</button>
+                <button data-value="3">3</button>
+                <button data-value="4">4</button>
+                <button data-value="5">5</button>
+                <button data-value="6">6</button>
+                <button data-value="7">7</button>
+                <button data-value="8">8</button>
+                <button data-value="9">9</button>
+                <button data-value="borrar" class="borrar">⌫</button>
+                <button data-value="0">0</button>
+                <button data-value="enter" class="enter">✓</button>
+            </div>
+
+            <div class="error-msg" id="errorMsg">❌ Contraseña incorrecta. Intenta de nuevo.</div>
+
+            <div style="margin-top: 10px; font-size:0.8rem; color:#7a5a6b;">
+                (La contraseña son 4 dígitos)
+            </div>
+        </div>
+
+        <!-- ========== PANTALLA 2: SECRETA ========== -->
+        <div id="pantalla2" class="card">
+            <h2 class="titulo-secreto">💖 Nuestros 7 meses 💖</h2>
+            <p class="sub-secreto">— Contigo, cada día es especial —</p>
+
+            <!-- Video (puedes cambiar el src por tu propio video) -->
+            <div class="video-wrapper">
+                <!-- Ejemplo con video de YouTube (romántico) -->
+                <iframe src="video.mp4" 
+                        allow="autoplay; encrypted-media" 
+                        allowfullscreen>
+                </iframe>
+                <!-- 
+                    Si quieres usar un video local, reemplaza el iframe por:
+                    <video controls autoplay muted loop>
+                        <source src="tu-video.mp4" type="video/mp4">
+                    </video>
+                -->
+            </div>
+
+            <!-- Texto bonito con muchos mensajes -->
+            <div class="texto-bonito" id="textoBonito">
+                <p>
+                    <span class="corazoncito">❤️</span> Hace <span class="fecha" id="diasMostrar">0</span> días, 
+                    el <span class="fecha" id="fechaInicio">12/12/2025</span>, comenzó nuestra historia. 
+                    Y desde entonces, cada segundo a tu lado es un regalo, mil desculpas amor por no hacerlo
+                    antes pero quiero que me entiendas que estado muy ocupado y llegaba tarde del trabajo, 
+                    pero eso no quita el merito de que no te amo, te amo mucho y mucho y siempre seras una 
+                    persona muy importante para mi.
+                </p>
+                <p>
+                    <span class="corazoncito">✨</span> Eres la luz que ilumina mis días, la razón de mis sonrisas 
+                    y el latido que hace vibrar mi corazón. 
+                </p>
+                <p>
+                    <span class="corazoncito">🌸</span> Contigo he aprendido que el amor verdadero no se busca, 
+                    simplemente llega y se queda. Y tú te quedaste en mí para siempre.
+                </p>
+                <p>
+                    <span class="corazoncito">🌹</span> Gracias por estos 7 meses de complicidad, de abrazos 
+                    que curan, de miradas que lo dicen todo y de sueños que construimos juntos, que a pesar
+                    de todas las adversidades aun seguimos juntos y amandonos como nunca.
+                </p>
+                <p>
+                    <span class="corazoncito">💫</span> Eres mi presente, mi futuro y mi eternidad. 
+                    No hay palabras suficientes para decirte cuánto te amo.
+                </p>
+                <p>
+                    <span class="corazoncito">🥰</span> Eres perfecta tal como eres, con tus virtudes y tus 
+                    pequeñas locuras. Porque así te elegí, así te quiero y así te amaré siempre.
+                </p>
+                <p style="border-left-color: #ff6b9d; font-style: italic; color: #f0d0e0;">
+                    "El amor no se mira, se siente, y ni siquiera se piensa, se vive." 
+                    — <small>Abigail & tú</small>
+                </p>
+            </div>
+
+            <div class="frase-final">
+                Te amo, mi Abigail <span class="corazoncito">❤️</span>
+            </div>
+
+            <button class="btn-reinicio" onclick="reiniciar()">↺ Volver al inicio</button>
+
+            <div class="fecha-pie" id="fechaActual"></div>
+        </div>
+
+    </div>
+
+    <script>
+        // =========================================================
+        //  CONFIGURACIÓN (¡CAMBIA ESTO!)
+        // =========================================================
+        const CONTRASENA_CORRECTA = "1225"; // 4 dígitos (ej. fecha de aniversario)
+        const FECHA_INICIO = new Date(2025, 11, 12); // (año, mes-1, día) -> 15 de diciembre de 2025
+        // =========================================================
+
+        // Elementos
+        const pantalla1 = document.getElementById('pantalla1');
+        const pantalla2 = document.getElementById('pantalla2');
+        const passwordDisplay = document.getElementById('passwordDisplay');
+        const errorMsg = document.getElementById('errorMsg');
+        const teclado = document.querySelector('.teclado');
+        let password = '';
+
+        // Mostrar asteriscos en el display
+        function actualizarDisplay() {
+            const mostrar = password.split('').map(() => '◈').join(' ');
+            passwordDisplay.textContent = mostrar || '◈ ◈ ◈ ◈';
+        }
+
+        // Manejar clicks del teclado
+        teclado.addEventListener('click', (e) => {
+            const btn = e.target.closest('button');
+            if (!btn) return;
+            const value = btn.dataset.value;
+
+            if (value === 'borrar') {
+                password = password.slice(0, -1);
+                actualizarDisplay();
+                errorMsg.classList.remove('visible');
+                return;
+            }
+
+            if (value === 'enter') {
+                verificarContrasena();
+                return;
+            }
+
+            // Si es un número
+            if (password.length < 4) {
+                password += value;
+                actualizarDisplay();
+                errorMsg.classList.remove('visible');
+            }
+        });
+
+        // Verificar contraseña
+        function verificarContrasena() {
+            if (password === CONTRASENA_CORRECTA) {
+                // Éxito: mostrar pantalla 2
+                pantalla1.style.display = 'none';
+                pantalla2.style.display = 'block';
+                // Actualizar datos de la fecha en la pantalla 2
+                actualizarDatos();
+                // Limpiar por si vuelven
+                password = '';
+                actualizarDisplay();
+                errorMsg.classList.remove('visible');
+            } else {
+                errorMsg.classList.add('visible');
+                // Limpiar contraseña después de error
+                setTimeout(() => {
+                    password = '';
+                    actualizarDisplay();
+                }, 800);
+            }
+        }
+
+        // También permitir Enter desde el teclado físico (opcional)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                verificarContrasena();
+            }
+            if (e.key >= '0' && e.key <= '9' && password.length < 4) {
+                password += e.key;
+                actualizarDisplay();
+                errorMsg.classList.remove('visible');
+            }
+            if (e.key === 'Backspace') {
+                password = password.slice(0, -1);
+                actualizarDisplay();
+                errorMsg.classList.remove('visible');
+            }
+        });
+
+        // ===== FUNCIONES PARA PANTALLA 2 =====
+        function actualizarDatos() {
+            const hoy = new Date();
+            const diffMs = hoy - FECHA_INICIO;
+            const diffDias = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            document.getElementById('diasMostrar').textContent = diffDias > 0 ? diffDias : '0';
+
+            const opcionesFecha = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('fechaInicio').textContent = FECHA_INICIO.toLocaleDateString('es-ES', opcionesFecha);
+
+            document.getElementById('fechaActual').textContent = `Hoy: ${hoy.toLocaleDateString('es-ES', opcionesFecha)}`;
+        }
+
+        // Reiniciar a pantalla 1
+        function reiniciar() {
+            pantalla2.style.display = 'none';
+            pantalla1.style.display = 'block';
+            password = '';
+            actualizarDisplay();
+            errorMsg.classList.remove('visible');
+        }
+
+        // ===== CORAZONES FLOTANTES =====
+        function crearCorazones() {
+            const contenedor = document.getElementById('floatingHearts');
+            const corazones = ['❤️', '💖', '💕', '💗', '💓', '🌸', '✨', '💝'];
+            for (let i = 0; i < 25; i++) {
+                const span = document.createElement('span');
+                span.className = 'heart';
+                span.textContent = corazones[Math.floor(Math.random() * corazones.length)];
+                span.style.left = Math.random() * 100 + '%';
+                span.style.fontSize = (1.2 + Math.random() * 2.5) + 'rem';
+                span.style.animationDuration = (12 + Math.random() * 18) + 's';
+                span.style.animationDelay = (Math.random() * 20) + 's';
+                contenedor.appendChild(span);
+            }
+        }
+        crearCorazones();
+
+        // Inicializar display
+        actualizarDisplay();
+    </script>
+
+</body>
+</html>
